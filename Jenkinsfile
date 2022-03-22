@@ -8,6 +8,7 @@ podTemplate(label: 'common-pod', containers: [
   ]) {
     node('common-pod') {
       echo BRANCH
-
+      List<String> list = new ArrayList<String>(Arrays.asList(CLUSTERS.split(",")));
+      println list;
     }
   }
