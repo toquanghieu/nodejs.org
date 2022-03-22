@@ -7,8 +7,21 @@ podTemplate(label: 'common-pod', containers: [
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
   ]) {
     node('common-pod') {
-      echo BRANCH
       List<String> list = new ArrayList<String>(Arrays.asList(CLUSTERS.split(",")));
-      println list;
+      deployToK8s();
     }
   }
+def deployToK8s(running = true) {
+  if (running) {
+    container('kubectl') {
+      for(item in list){
+        echo item
+        def MY_KUBECONFIG = credentials(item)
+        sh """
+                kubectl --kubeconfig $MY_KUBECONFIG 
+                kubectl kubectl config view
+            """
+      }
+    }
+  }
+}
