@@ -7,7 +7,7 @@ podTemplate(label: 'common-pod', containers: [
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
   ]) {
     node('common-pod') {
-      echo ${BRANCH}
+      echo BRANCH
 
     }
   }
