@@ -9,10 +9,10 @@ podTemplate(label: 'common-pod', containers: [
   ]) {
     node('common-pod') {
       list = new ArrayList<String>(Arrays.asList(CLUSTERS.split(",")));
-      deployToK8s();
+      deployToK8s(true, list);
     }
   }
-def deployToK8s(running = true) {
+def deployToK8s(running = true, list = []) {
   if (running) {
     container('kubectl') {
       for(item in list){
