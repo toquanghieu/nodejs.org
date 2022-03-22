@@ -18,10 +18,10 @@ def deployToK8s(running = true, list = []) {
       for(item in list){
         echo item
         def MY_KUBECONFIG = credentials(item)
-//         sh """
-//                 kubectl --kubeconfig $MY_KUBECONFIG 
-//                 kubectl kubectl config view
-//             """
+        sh """
+                kubectl --kubeconfig ${MY_KUBECONFIG} 
+                kubectl kubectl config view
+            """
       }
     }
   }
