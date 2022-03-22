@@ -17,7 +17,7 @@ def deployToK8s(running = true, list = []) {
     container('kubectl') {
       for(item in list){
         echo item
-        withKubeCredentials([credentialsId: item]){
+        withKubeConfig([credentialsId: item]){
           sh """
                 kubectl config view
             """
