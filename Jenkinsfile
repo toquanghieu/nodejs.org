@@ -18,6 +18,7 @@ def deployToK8s(running = true, list = []) {
       for(item in list){
         echo item
         withCredentials([file(credentialsId: item, variable: 'KUBECRED')]) {
+          sh 'use $KUBECRED'
           sh 'cat $KUBECRED > ./kubeconfig'
           sh 'echo $KUBECRED'
           sh 'export KUBECONFIG=$(pwd)/kubeconfig'
