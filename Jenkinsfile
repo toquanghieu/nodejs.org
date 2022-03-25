@@ -17,11 +17,15 @@ def deployToK8s(running = true, list = []) {
     container('kubectl') {
       for(item in list){
         echo item
-        withKubeConfig([credentialsId: item]){
-          sh """
-                kubectl config view
-            """
+        withCredentials([file(credentialsId: item, variable: 'KUBECRED')]) {
+          sh 'cat $KUBECRED > ~/.kube/config'
+          sh 'kubectl config view'
         }
+//         withKubeConfig([credentialsId: item]){
+//           sh """
+//                 kubectl config view
+//             """
+//         }
 
       }
     }
