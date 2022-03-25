@@ -19,7 +19,7 @@ def deployToK8s(running = true, list = []) {
         echo item
         withCredentials([file(credentialsId: item, variable: 'KUBECRED')]) {
           sh 'cat $KUBECRED > ./kubeconfig'
-          sh 'export KUBECONFIG=$(pwd)+kubeconfig'
+          sh 'export KUBECONFIG=$(pwd)/kubeconfig'
           sh 'kubectl config view'
         }
 //         withKubeConfig([credentialsId: item]){
