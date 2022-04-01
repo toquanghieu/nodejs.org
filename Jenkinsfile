@@ -19,20 +19,11 @@ def deployToK8s(running = true, list = []) {
         echo item
         withCredentials([file(credentialsId: item, variable: 'KUBECRED')]) {
           sh 'use $KUBECRED'
-          sh 'cat $KUBECRED > ./kubeconfig'
-          sh 'cat ./kubeconfig'
-          sh 'echo $KUBECRED'
+          sh 'cat $KUBECRED'
           sh 'export KUBECONFIG=$(pwd)/kubeconfig'
           sh 'grep /home/jenkins/agent/workspace/hieu-test-pipeline/kubeconfig'
           sh 'kubectl config view'
         }
-//         withKubeConfig([credentialsId: item]){
-//           sh """
-        
-//                 kubectl config view
-//             """
-//         }
-
       }
     }
   }
