@@ -17,10 +17,7 @@ def deployToK8s(running = true, list = []) {
     container('kubectl') {
       for(item in list){
         echo item
-        withCredentials([file(credentialsId: item, variable: 'KUBECRED')]) {
-          sh 'cat $KUBECRED'
-          sh 'export KUBECONFIG=$(pwd)/kubeconfig'
-          sh 'grep /home/jenkins/agent/workspace/hieu-test-pipeline/kubeconfig'
+        withCredentials([file(credentialsId: item, variable: 'KUBECONFIG')]) {
           sh 'kubectl config view'
         }
       }
