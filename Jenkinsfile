@@ -1,3 +1,4 @@
+def CLUSTERS = "customer1-cluster,customer2-cluster"
 List<String> list
 podTemplate(label: 'common-pod', containers: [
         containerTemplate(name: 'docker', image: 'public.ecr.aws/smartlog/docker:19.03.8', command: 'cat', ttyEnabled: true),
