@@ -20,6 +20,7 @@ def deployToK8s(running = true, list = []) {
         echo item
         withCredentials([file(credentialsId: item, variable: 'KUBECONFIG')]) {
           sh 'kubectl config view'
+          sh 'kubectl get pods'
         }
       }
     }
