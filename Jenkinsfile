@@ -15,7 +15,7 @@ podTemplate(label: 'common-pod', containers: [
 }
 def deployToK8s(running = true, list = []) {
   if (running) {
-    container('kubectl') {
+    container('odaniait/aws-kubectl') {
       for(item in list){
         echo item
         withCredentials([file(credentialsId: item, variable: 'KUBECONFIG'),
