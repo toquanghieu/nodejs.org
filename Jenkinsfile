@@ -18,7 +18,9 @@ def deployToK8s(running = true, list = []) {
     container('kubectl') {
       for(item in list){
         echo item
-        withCredentials([file(credentialsId: item, variable: 'KUBECONFIG')]) {
+        withCredentials([file(credentialsId: item, variable: 'KUBECONFIG'),
+                         string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                         string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
           sh 'kubectl config view'
           sh 'kubectl get pods'
         }
