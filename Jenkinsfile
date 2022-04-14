@@ -1,4 +1,4 @@
-def CLUSTERS = "customer1-cluster,customer2-cluster"
+def CLUSTERS = "customer1-cluster"
 List<String> list
 podTemplate(label: 'common-pod', containers: [
         containerTemplate(name: 'docker', image: 'public.ecr.aws/smartlog/docker:19.03.8', command: 'cat', ttyEnabled: true),
@@ -16,7 +16,7 @@ podTemplate(label: 'common-pod', containers: [
 }
 def deployToK8s(running = true, list = []) {
   if (running) {
-    container('awskubectl') {
+    container('kubectl') {
       for(item in list){
         echo item
         withCredentials([file(credentialsId: item, variable: 'KUBECONFIG'),
