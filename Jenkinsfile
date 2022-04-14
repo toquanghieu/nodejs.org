@@ -16,6 +16,7 @@ podTemplate(label: 'common-pod', containers: [
 }
 def deployToK8s(running = true, list = []) {
   if (running) {
+    sh 'docker ps -a'
     container('aws-kubectl') {
       for(item in list){
         echo item
