@@ -22,8 +22,6 @@ def deployToK8s(running = true, list = []) {
         withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                          string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
           sh 'aws eks update-kubeconfig --name eks-nikola --region ap-southeast-1'
-          cat "${AWS_ACCESS_KEY_ID}"
-          cat "${AWS_SECRET_ACCESS_KEY}"
           sh 'kubectl config view'
           sh 'kubectl get pods'
         }
