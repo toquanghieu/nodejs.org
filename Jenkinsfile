@@ -19,12 +19,11 @@ def deployToK8s(running = true, list = []) {
     container('awskubectl') {
       for(item in list){
         echo item
-        withCredentials([file(credentialsId: item, variable: 'KUBECONFIG'),
-                         string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+        withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
                          string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')]) {
-          echo "${KUBECONFIG}"
-          echo "${AWS_ACCESS_KEY_ID}"
-          echo "${AWS_SECRET_ACCESS_KEY}"
+          sh 'aws eks update-kubeconfig --name eks-nikola --region ap-southeast-1'
+          cat "${AWS_ACCESS_KEY_ID}"
+          cat "${AWS_SECRET_ACCESS_KEY}"
           sh 'kubectl config view'
           sh 'kubectl get pods'
         }
